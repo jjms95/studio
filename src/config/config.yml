@@ -1,0 +1,24 @@
+---
+production: &default
+    serverPort: 3000
+    baseUrl: http://production.localhost
+    baseApi: /api/
+    views:
+        engine: .hbs
+        extension: .hbs
+        layout: index
+    html:
+        minify: true
+        stylusPrecompile: true
+    controllers:
+        default: pages
+    languages:
+        default: en
+        list: [en, es]
+
+development:
+    <<: *default
+    baseUrl: http://localhost
+    html:
+        minify: false
+        stylusPrecompile: false

@@ -1,0 +1,44 @@
+{
+	"name": "studio",
+	"version": "0.0.1",
+	"private": true,
+	"scripts": {
+
+		"start": "pm2 start pm2.json",
+		"stop": "pm2 kill",
+		"preinstall": "npm prune",
+		"postinstall": "bower prune; bower install; grunt githooks"
+	},
+	"author": "Jhon Jairo",
+	"license": "NONE",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/jjms95/studio.git"
+	},
+	"dependencies": {
+		"body-parser": "~1.10.2",
+		"cookie-parser": "~1.4.3",
+		"debug": "~2.6.9",
+		"express": "~4.16.0",
+		"express-handlebars": "latest",
+		"font-awesome": "latest",
+		"http-errors": "~1.6.2",
+		"js-jaml": "latest",
+		"lodash": "2.4.1",
+		"morgan": "~1.9.0",
+		"nib": "latest",
+		"normalize-css": "latest",
+		"pm2": "^3.0.3",
+		"requirejs": "latest",
+		"stylus": "latest",
+		"angular": "latest"
+	},
+	"devDependencies": {
+		"bower": "latest",
+		"grunt": "latest",
+		"grunt-contrib-jshint": "latest",
+		"grunt-jscs": "latest",
+		"grunt-githooks": "latest",
+		"grunt-shell": "latest"
+	}
+}

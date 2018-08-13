@@ -9,7 +9,9 @@ production: &default
         layout: index
     html:
         minify: true
-        stylusPrecompile: true
+        css:
+            compress: true
+            stylusPrecompile: true
     controllers:
         default: pages
     languages:
@@ -21,4 +23,6 @@ development:
     baseUrl: http://localhost
     html:
         minify: false
-        stylusPrecompile: false
+        css:
+            compress: false
+            stylusPrecompile: false

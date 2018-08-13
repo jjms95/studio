@@ -20,7 +20,7 @@ app.use(cookieParser());
 // Body parcer
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({extended: false}));
 
 //Logger
 var logger = require('morgan');
@@ -31,7 +31,21 @@ var expHbs = require('express-handlebars');
 
 // Stylus Setup
 var stylus = require('stylus');
-var nib = require('nib');
+
+// Compile stylus
+if (!config().html.css.stylusPrecompile) {
+	app.use(
+		stylus.middleware({
+			src: __dirname + '/stylus',
+			dest: __dirname + '/public/javascripts',
+			compile: function() {
+				return stylus(str)
+					.set('filename', path)
+					.set('compress', config().html.css.compress);
+			}
+		})
+	);
+}
 
 // Handlebars setup
 app.engine(config().views.engine, expHbs({
@@ -46,33 +60,15 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', '.hbs');
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Routes
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+//Disabling x-powered by
+app.disable('x-powered-by');
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-	next(createError(404));
-});
-
-// error handler
-app.use(function(err, req, res, next) {
-	// set locals, only providing error in development
-	res.locals.message = err.message;
-	res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-	// render the error page
-	res.status(err.status || 500);
-	res.render('error');
-});
-
+// Router
+require('./router')(app);
 
 // Export app or start the server
-if(!!module.parent){
+if (!!module.parent) {
 	module.exports = app;
-}
-else {
+} else {
 	app.listen(config().serverPort);
 }

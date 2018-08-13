@@ -8,4 +8,4 @@ var config = yaml.safeLoad(fs.readFileSync(__dirname + './../config/config.yml',
 
 module.exports = function() {
 	return config[environment().name] || {};
-}
+};
